@@ -21,8 +21,9 @@ open(INFILE, $ARGV[0]) or die "Cannot open $ARGV[0]: $!.\n";
 
 
 # YOUR VARIABLE DEFINITIONS HERE...
-
-
+my $firstWord;
+my $secondWord;
+my %bigram;
 # This loops through each line of the file
 while($line = <INFILE>) {
 
@@ -30,34 +31,18 @@ while($line = <INFILE>) {
 	$line =~ s/^.*<SEP>//; #step 1, grap song title
 	$title = $line;
 	$title =~ s/(feat|\"|\(|\[|\{|\\|\/|\-|\:|\‘|\+|\=|\*).*$//; #step 2, discard anything after these chars
-	$title =~ s/(\_|\?|\¿|\!|\¡|\.|\;|\|\&|\$|\@|\%)//g;  #step 3, remove unwanted punc
+	$title =~ s/(\_|\?|\¿|\!|\¡|\(|\-|\.|\;|\\|\&|\$|\@|\%)//g;  #step 3, remove unwanted punc
 	$title =~ tr/[A-Z]/[a-z]/; #step 4, change to lower case
 	my @array = split( ' ', $title );
-	for $word (@array){
-		print "${array}$word+1\n";
-		for $i (@word){
-			print "$i\n";
-		}
-		$x = 0;
-		$bigram = $array[x] . " " . $array[x+1];
-		$x = $x + 1;
-		print "bigram = $bigram\n";    
+	for my $i (0 .. $#array) {
+    		$firstWord =  $array[$i];
+    		$secondWord = $array[($i+1)];
+		$bigram{$firstWord} = $secondWord;
+		while (($key, $value) = each(%bigram)){
+     			print $key.", ".$value."\n\n";
+		}#end while print loop
 
-		#print "$word \n";
-		#print "$array[$word] $array[$word+1]\n";
-		#$bigram = "$word2 $word1";
-		#$word2 = $word1;
-		#$count{$bigram}++;
-	}
-	print "********\n\n";
-#foreach $bigram (sort numerically keys %count) {
-#print "$count{$bigram} $bigram\n";
-#}
-
-#sub numerically { # compare two words numerically
-#$count{$b} <=> $count{$a}; # decreasing order
-# $count{$b} <=> $count{$a}; # increasing order
-#} 
+	}#end for i in arr
 		
 }# end while line in file
 
