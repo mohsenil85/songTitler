@@ -33,19 +33,23 @@ while($line = <INFILE>) {
 	$title =~ s/(\_|\?|\¿|\!|\¡|\.|\;|\|\&|\$|\@|\%)//g;  #step 3, remove unwanted punc
 	$title =~ tr/[A-Z]/[a-z]/; #step 4, change to lower case
 	my @array = split( ' ', $title );
-	foreach $word (@array){
-		$i = 0;
-		$bigram = $array[i] . " " . $array[i+1];
-		$i = $i + 1;
+	for $word (@array){
+		print "${array}$word+1\n";
+		for $i (@word){
+			print "$i\n";
+		}
+		$x = 0;
+		$bigram = $array[x] . " " . $array[x+1];
+		$x = $x + 1;
 		print "bigram = $bigram\n";    
 
 		#print "$word \n";
 		#print "$array[$word] $array[$word+1]\n";
-		$bigram = "$word2 $word1";
-		$word2 = $word1;
-		$count{$bigram}++;
+		#$bigram = "$word2 $word1";
+		#$word2 = $word1;
+		#$count{$bigram}++;
 	}
-	print "end arr\n\n";
+	print "********\n\n";
 #foreach $bigram (sort numerically keys %count) {
 #print "$count{$bigram} $bigram\n";
 #}
