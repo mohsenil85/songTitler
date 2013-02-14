@@ -23,10 +23,8 @@ open(INFILE, $ARGV[0]) or die "Cannot open $ARGV[0]: $!.\n";
 # YOUR VARIABLE DEFINITIONS HERE...
 my $firstWord;
 my $secondWord;
-#my %bigram;
 my $bigram;
 my %count;
-#my $count;
 # This loops through each line of the file
 while($line = <INFILE>) {
 
@@ -44,12 +42,17 @@ while($line = <INFILE>) {
 		$secondWord = $firstWord;
 		$count{$bigram}++;
 	}#end for i in arr
-	while (($key, $value) = each(%count)){
-     		print $key.", ".$value."\n\n";
-	}
+	#while (($key, $value) = each(%count)){
+     		#print $key.", ".$value."\n\n";
+	#}#end while print loop
 
 		
 }# end while line in file
+
+
+foreach $bigram (sort %count) {
+	print "$count{$bigram} $bigram\n";
+}
 
 # Close the file handle
 close INFILE; 
@@ -57,5 +60,7 @@ close INFILE;
 # At this point you will have finished processing the song title
 # file and have populated your data structure of bigram counts.
 print "File parsed. Bigram model built.\n";
+
+
 
 # MORE OF YOUR CODE HERE....
