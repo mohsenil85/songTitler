@@ -23,7 +23,10 @@ open(INFILE, $ARGV[0]) or die "Cannot open $ARGV[0]: $!.\n";
 # YOUR VARIABLE DEFINITIONS HERE...
 my $firstWord;
 my $secondWord;
-my %bigram;
+#my %bigram;
+my $bigram;
+my %count;
+#my $count;
 # This loops through each line of the file
 while($line = <INFILE>) {
 
@@ -37,12 +40,14 @@ while($line = <INFILE>) {
 	for my $i (0 .. $#array) {
     		$firstWord =  $array[$i];
     		$secondWord = $array[($i+1)];
-		$bigram{$firstWord} = $secondWord;
-		while (($key, $value) = each(%bigram)){
-     			print $key.", ".$value."\n\n";
-		}#end while print loop
-
+		$bigram= "$firstWord  $secondWord";
+		$secondWord = $firstWord;
+		$count{$bigram}++;
 	}#end for i in arr
+	while (($key, $value) = each(%count)){
+     		print $key.", ".$value."\n\n";
+	}
+
 		
 }# end while line in file
 
