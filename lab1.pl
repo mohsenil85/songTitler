@@ -78,3 +78,14 @@ sub mcw {
 
 $bob = &mcw($input);
 print "$bob\n";
+
+print "20 word song title.  Please enter the starting word\n";
+chomp ($input = <STDIN>);
+my $songTitle = $input;
+for ($i = 0; $i < 20; $i++){
+
+	$songTitle = $songTitle ." ". mcw($input);
+	$input = mcw($input);
+}
+
+print "$songTitle\n";	
