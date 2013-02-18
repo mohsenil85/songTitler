@@ -25,6 +25,7 @@ my $firstWord;
 my $secondWord;
 my $bigram;
 my %count;
+my %sortedCount;
 # This loops through each line of the file
 while($line = <INFILE>) {
 
@@ -38,21 +39,18 @@ while($line = <INFILE>) {
 	for my $i (0 .. $#array) {
     		$firstWord =  $array[$i];
     		$secondWord = $array[($i+1)];
-		$bigram= "$firstWord  $secondWord";
+		$bigram= "$firstWord  $secondWord\n";
 		$secondWord = $firstWord;
 		$count{$bigram}++;
 	}#end for i in arr
-	#while (($key, $value) = each(%count)){
-     		#print $key.", ".$value."\n\n";
-	#}#end while print loop
-
 		
+
 }# end while line in file
 
 
-foreach $bigram (sort %count) {
-	print "$count{$bigram} $bigram\n";
-}
+#foreach $bigram (sort %count) {
+	#print "$count{$bigram} $bigram\n";
+#}#end print loop
 
 # Close the file handle
 close INFILE; 
@@ -62,5 +60,12 @@ close INFILE;
 print "File parsed. Bigram model built.\n";
 
 
+print "Type the word you would like to search\n";
+$input = <STDIN>;
+chomp $input;
 
-# MORE OF YOUR CODE HERE....
+
+foreach $bigram (sort %count) {
+	$thing = "$count{$bigram} $bigram\n";
+	print grep {/ $input/ } $thing;
+}#end print loop
