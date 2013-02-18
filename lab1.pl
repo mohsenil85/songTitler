@@ -49,7 +49,7 @@ while($line = <INFILE>) {
 
 
 #foreach $bigram (sort %count) {
-	#print "$count{$bigram} $bigram\n";
+#	print "$count{$bigram} $bigram\n";
 #}#end print loop
 
 # Close the file handle
@@ -65,7 +65,18 @@ $input = <STDIN>;
 chomp $input;
 
 
-foreach $bigram (sort %count) {
+#foreach $bigram (sort keys %count) {
+	#$thing = "$count{$bigram} $bigram\n";
+	#print sort  grep {/$input/ } $thing;
+#}#end print loop
+
+my @sortedArr;
+my @arr;
+foreach $bigram (%count) {
 	$thing = "$count{$bigram} $bigram\n";
-	print grep {/ $input/ } $thing;
+	push (@arr, (grep {/ $input / } $thing));
 }#end print loop
+
+@sortedArr = sort {$a <=> $b} @arr;
+
+print "@sortedArr \n";
