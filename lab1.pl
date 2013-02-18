@@ -59,24 +59,22 @@ close INFILE;
 # file and have populated your data structure of bigram counts.
 print "File parsed. Bigram model built.\n";
 
-
 print "Type the word you would like to search\n";
-$input = <STDIN>;
-chomp $input;
+chomp ($input = <STDIN>);
+sub mcw {
+	
+	my @sortedArr;
+	my @arr;
+	foreach $bigram (%count) {
+		$thing = "$count{$bigram} $bigram\n";
+		push (@arr, (grep {/ $_[0] / } $thing));
+	}#end loop
+	@sortedArr = sort {$a <=> $b} @arr;
+	$lastWord = "$sortedArr[-2] \n";
+	$lastWord =~ s/[0-9]*//;
+	my @wordArr = split( /\s+/, $lastWord );	
+	return  $wordArr[-1];
+}
 
-
-#foreach $bigram (sort keys %count) {
-	#$thing = "$count{$bigram} $bigram\n";
-	#print sort  grep {/$input/ } $thing;
-#}#end print loop
-
-my @sortedArr;
-my @arr;
-foreach $bigram (%count) {
-	$thing = "$count{$bigram} $bigram\n";
-	push (@arr, (grep {/ $input / } $thing));
-}#end print loop
-
-@sortedArr = sort {$a <=> $b} @arr;
-
-print "@sortedArr \n";
+$bob = &mcw($input);
+print "$bob\n";
