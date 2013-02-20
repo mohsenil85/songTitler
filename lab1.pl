@@ -67,17 +67,16 @@ sub mcw {
 	my @arr;
 	foreach $bigram (%count) {
 		$thing = "$count{$bigram} $bigram\n";
-		push (@arr, (grep {/ $_[0] / } $thing));
+		push (@arr, (grep {/[0-9]*$_[0] / } $thing));#need to only grab lines where the search string is immed. prec by numbers, thereby eliminating lines where the search string is the second item in the bigram
 	}#end loop
 	@sortedArr = sort {$a <=> $b} @arr;
-	$lastWord = "$sortedArr[-2] \n";
-	$lastWord =~ s/[0-9]*//;
+	$lastWord = "$sortedArr[-2] \n";#return the second to last most common, this assumes that any given word is more common by itself
+	$lastWord =~ s/([0-9]*|$_[0])//g;
 	my @wordArr = split( /\s+/, $lastWord );	
 	return  $wordArr[-1];
 }
 
-$bob = &mcw($input);
-print "$bob\n";
+print &mcw($input)."\n";
 
 print "20 word song title.  Please enter the starting word\n";
 chomp ($input = <STDIN>);
